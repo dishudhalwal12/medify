@@ -16,6 +16,9 @@ This README is written for the exact situation where you open AnyDesk on a clien
 - The ML assessments run through internal Next.js API routes
 - Python is still required because the app calls the local ML runtime for diabetes, heart, kidney, and liver inference
 - Report uploads do not rely on Firebase Storage for local demo use; uploads are handled locally by the app and metadata is still saved in Firestore
+- The repo already includes the app API routes and the Python ML code
+- Core local use does not require creating `.env.local`
+- If no Gemini key is provided, record summaries fall back to a built-in local summarizer
 
 **Recommended Client Laptop Flow**
 - Use Windows PowerShell unless you know the laptop is macOS/Linux
@@ -24,7 +27,7 @@ This README is written for the exact situation where you open AnyDesk on a clien
   2. Node.js
   3. Python
   4. VS Code
-- Then clone the repo, create `.env.local`, install packages, train models, and run the app
+- Then clone the repo, install packages, train models, and run the app
 
 **1. Quick Pre-Check On Client Laptop**
 Open PowerShell and run these one by one:
@@ -98,16 +101,8 @@ Use this if `git --version` works:
 
 ```powershell
 cd $HOME\Desktop
-git clone <YOUR_GITHUB_REPO_URL>
-cd Symptora
-```
-
-Replace `<YOUR_GITHUB_REPO_URL>` with your real GitHub clone URL.
-
-Example:
-
-```powershell
-git clone https://github.com/yourname/symptora.git
+git clone https://github.com/dishudhalwal12/medify.git
+cd medify
 ```
 
 **Option B: Git is not available**
@@ -117,7 +112,7 @@ Use this if you do not want to install Git.
 2. Click `Code`
 3. Click `Download ZIP`
 4. Extract the ZIP
-5. Rename the extracted folder to `Symptora` if needed
+5. Rename the extracted folder to `medify` if needed
 6. Open PowerShell in that extracted folder
 
 **4. Open The Project In VS Code**
@@ -132,36 +127,38 @@ If that command does not work:
 - Open VS Code manually
 - Click `File`
 - Click `Open Folder`
-- Select the `Symptora` folder
+- Select the `medify` folder
 
-**5. Create `.env.local`**
+**5. Optional: Create `.env.local` Only If You Want Custom Keys**
 
-In PowerShell, from the project root:
+You do **not** need `.env.local` for the core localhost demo.
+
+The repo already contains:
+- public Firebase web configuration for the existing project
+- internal API routes for assessments
+- local upload handling
+- local fallback summaries when Gemini is not configured
+
+Only create `.env.local` if you want to override the built-in defaults or use your own Gemini key.
+
+If you want that optional file, run:
 
 ```powershell
 Copy-Item .env.example .env.local
 ```
 
-Then open `.env.local` and fill in the real Firebase and Gemini values.
-
-Required Firebase values:
-- `NEXT_PUBLIC_FIREBASE_API_KEY`
-- `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN`
-- `NEXT_PUBLIC_FIREBASE_PROJECT_ID`
-- `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET`
-- `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID`
-- `NEXT_PUBLIC_FIREBASE_APP_ID`
-
-Recommended for this project:
+Useful optional overrides:
 
 ```env
-NEXT_PUBLIC_ML_API_BASE_URL=http://127.0.0.1:8000
-NEXT_PUBLIC_GEMINI_ENABLED=false
+GEMINI_API_KEY=your_key_here
+GEMINI_MODEL=gemini-2.5-flash
+SYMPTORA_PYTHON_BIN=python
 ```
 
 Important note:
 - The app now uses internal ML routes by default, so local assessment flows can still work even if you are not manually running a separate FastAPI server
 - For local report uploads, the app uses its own local upload route and does not require paid Firebase Storage
+- Assessment explanations are local by default, so they do not consume Gemini quota
 
 **6. Install Frontend Dependencies**
 
@@ -241,8 +238,8 @@ http://localhost:3000
 
 ```powershell
 git --version
-git clone <YOUR_GITHUB_REPO_URL>
-cd Symptora
+git clone https://github.com/dishudhalwal12/medify.git
+cd medify
 ```
 
 **If Git is missing**

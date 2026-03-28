@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 
+import { buildRecordSummary } from "@/lib/record-summarizer";
 import { summarizeRecordWithGemini } from "@/services/gemini.server";
 
 export async function POST(request: Request) {
@@ -10,7 +11,9 @@ export async function POST(request: Request) {
       category: "lab-report" | "prescription" | "xray" | "other";
     };
 
-    const result = await summarizeRecordWithGemini(payload);
+    const result = process.env.GEMINI_API_KEY
+      ? await summarizeRecordWithGemini(payload)
+      : buildRecordSummary(payload);
     return NextResponse.json(result);
   } catch (error) {
     return NextResponse.json(
