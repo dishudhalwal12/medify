@@ -1,0 +1,285 @@
+{
+  "module": "kidney",
+  "version": "1.0.0",
+  "best_model": "random_forest",
+  "metrics": {
+    "best_metrics": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0
+    },
+    "all_results": {
+      "logistic_regression": {
+        "accuracy": 0.9875,
+        "precision": 1.0,
+        "recall": 0.98,
+        "f1_score": 0.98989898989899
+      },
+      "random_forest": {
+        "accuracy": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1_score": 1.0
+      },
+      "svm": {
+        "accuracy": 0.975,
+        "precision": 1.0,
+        "recall": 0.96,
+        "f1_score": 0.9795918367346939
+      }
+    },
+    "trainedAt": "2026-03-28T11:49:47.861372+00:00"
+  },
+  "schema": {
+    "target_column": "classification",
+    "positive_label": 1,
+    "negative_label": 0,
+    "target_mapping": {
+      "classification=ckd": "higher kidney disease risk class",
+      "classification=notckd": "lower kidney disease risk class"
+    },
+    "dropped_columns": [
+      "id"
+    ],
+    "input_columns": [
+      "age",
+      "bp",
+      "sg",
+      "al",
+      "su",
+      "rbc",
+      "pc",
+      "pcc",
+      "ba",
+      "bgr",
+      "bu",
+      "sc",
+      "sod",
+      "pot",
+      "hemo",
+      "pcv",
+      "wc",
+      "rc",
+      "htn",
+      "dm",
+      "cad",
+      "appet",
+      "pe",
+      "ane"
+    ]
+  },
+  "baselines": {
+    "age": {
+      "type": "numeric",
+      "overall_median": 55.0,
+      "positive_median": 59.0,
+      "negative_median": 46.0,
+      "std": 17.16971408926224,
+      "label": "Age"
+    },
+    "bp": {
+      "type": "numeric",
+      "overall_median": 80.0,
+      "positive_median": 80.0,
+      "negative_median": 70.0,
+      "std": 13.68363749352526,
+      "label": "Bp"
+    },
+    "sg": {
+      "type": "numeric",
+      "overall_median": 1.02,
+      "positive_median": 1.015,
+      "negative_median": 1.02,
+      "std": 0.0057166169743763555,
+      "label": "Sg"
+    },
+    "al": {
+      "type": "numeric",
+      "overall_median": 0.0,
+      "positive_median": 2.0,
+      "negative_median": 0.0,
+      "std": 1.3526789127628456,
+      "label": "Al"
+    },
+    "su": {
+      "type": "numeric",
+      "overall_median": 0.0,
+      "positive_median": 0.0,
+      "negative_median": 0.0,
+      "std": 1.099191251885407,
+      "label": "Su"
+    },
+    "rbc": {
+      "type": "categorical",
+      "overall_mode": "normal",
+      "positive_mode": "normal",
+      "negative_mode": "normal",
+      "label": "Rbc"
+    },
+    "pc": {
+      "type": "categorical",
+      "overall_mode": "normal",
+      "positive_mode": "normal",
+      "negative_mode": "normal",
+      "label": "Pc"
+    },
+    "pcc": {
+      "type": "categorical",
+      "overall_mode": "notpresent",
+      "positive_mode": "notpresent",
+      "negative_mode": "notpresent",
+      "label": "Pcc"
+    },
+    "ba": {
+      "type": "categorical",
+      "overall_mode": "notpresent",
+      "positive_mode": "notpresent",
+      "negative_mode": "notpresent",
+      "label": "Ba"
+    },
+    "bgr": {
+      "type": "numeric",
+      "overall_median": 121.0,
+      "positive_median": 143.5,
+      "negative_median": 107.5,
+      "std": 79.28171423511773,
+      "label": "Bgr"
+    },
+    "bu": {
+      "type": "numeric",
+      "overall_median": 42.0,
+      "positive_median": 53.0,
+      "negative_median": 33.0,
+      "std": 50.50300584922251,
+      "label": "Bu"
+    },
+    "sc": {
+      "type": "numeric",
+      "overall_median": 1.3,
+      "positive_median": 2.25,
+      "negative_median": 0.9,
+      "std": 5.741126066859788,
+      "label": "Sc"
+    },
+    "sod": {
+      "type": "numeric",
+      "overall_median": 138.0,
+      "positive_median": 136.0,
+      "negative_median": 141.0,
+      "std": 10.40875205179878,
+      "label": "Sod"
+    },
+    "pot": {
+      "type": "numeric",
+      "overall_median": 4.4,
+      "positive_median": 4.3,
+      "negative_median": 4.5,
+      "std": 3.193904176556695,
+      "label": "Pot"
+    },
+    "hemo": {
+      "type": "numeric",
+      "overall_median": 12.649999999999999,
+      "positive_median": 10.9,
+      "negative_median": 15.0,
+      "std": 2.9125866088267642,
+      "label": "Hemo"
+    },
+    "pcv": {
+      "type": "numeric",
+      "overall_median": 40.0,
+      "positive_median": 33.0,
+      "negative_median": 46.0,
+      "std": 8.990104814740937,
+      "label": "Pcv"
+    },
+    "wc": {
+      "type": "numeric",
+      "overall_median": 8000.0,
+      "positive_median": 8800.0,
+      "negative_median": 7500.0,
+      "std": 2944.4741904103385,
+      "label": "Wc"
+    },
+    "rc": {
+      "type": "numeric",
+      "overall_median": 4.8,
+      "positive_median": 3.9,
+      "negative_median": 5.3,
+      "std": 1.0253232655721793,
+      "label": "Rc"
+    },
+    "htn": {
+      "type": "categorical",
+      "overall_mode": "no",
+      "positive_mode": "yes",
+      "negative_mode": "no",
+      "label": "Htn"
+    },
+    "dm": {
+      "type": "categorical",
+      "overall_mode": "no",
+      "positive_mode": "yes",
+      "negative_mode": "no",
+      "label": "Dm"
+    },
+    "cad": {
+      "type": "categorical",
+      "overall_mode": "no",
+      "positive_mode": "no",
+      "negative_mode": "no",
+      "label": "Cad"
+    },
+    "appet": {
+      "type": "categorical",
+      "overall_mode": "good",
+      "positive_mode": "good",
+      "negative_mode": "good",
+      "label": "Appet"
+    },
+    "pe": {
+      "type": "categorical",
+      "overall_mode": "no",
+      "positive_mode": "no",
+      "negative_mode": "no",
+      "label": "Pe"
+    },
+    "ane": {
+      "type": "categorical",
+      "overall_mode": "no",
+      "positive_mode": "no",
+      "negative_mode": "no",
+      "label": "Ane"
+    }
+  },
+  "explainability": {
+    "type": "random_forest",
+    "global_importance": {
+      "age": 0.0,
+      "bp": 0.0,
+      "sg": 0.03966842635148725,
+      "al": 0.0,
+      "su": 0.0,
+      "rbc": 0.0,
+      "pc": 0.0,
+      "pcc": 0.0,
+      "ba": 0.0,
+      "bgr": 0.0,
+      "bu": 0.0,
+      "sc": 0.01301030103010301,
+      "sod": 0.0,
+      "pot": 0.0,
+      "hemo": 0.0,
+      "pcv": 0.0,
+      "wc": 0.0,
+      "rc": 0.0,
+      "htn": 0.009804487016377261,
+      "dm": 0.005940594059405946,
+      "cad": 0.0,
+      "appet": 0.0,
+      "pe": 0.0,
+      "ane": 0.0
+    }
+  }
+}

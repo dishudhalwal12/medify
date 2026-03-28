@@ -1,0 +1,40 @@
+{
+  "best_model": "svm",
+  "best_metrics": {
+    "accuracy": 0.7532467532467533,
+    "precision": 0.66,
+    "recall": 0.6111111111111112,
+    "f1_score": 0.6346153846153846
+  },
+  "all_results": {
+    "logistic_regression": {
+      "accuracy": 0.7142857142857143,
+      "precision": 0.6086956521739131,
+      "recall": 0.5185185185185185,
+      "f1_score": 0.56
+    },
+    "random_forest": {
+      "accuracy": 0.7337662337662337,
+      "precision": 0.6382978723404256,
+      "recall": 0.5555555555555556,
+      "f1_score": 0.594059405940594
+    },
+    "svm": {
+      "accuracy": 0.7532467532467533,
+      "precision": 0.66,
+      "recall": 0.6111111111111112,
+      "f1_score": 0.6346153846153846
+    }
+  },
+  "features": [
+    "Pregnancies",
+    "Glucose",
+    "BloodPressure",
+    "SkinThickness",
+    "Insulin",
+    "BMI",
+    "DiabetesPedigreeFunction",
+    "Age"
+  ],
+  "target": "Outcome"
+}

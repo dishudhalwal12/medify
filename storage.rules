@@ -1,0 +1,66 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // ─── Helpers ──────────────────────────────────────────────────────────
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    function isAdmin() {
+      return isSignedIn() &&
+        firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data.role == "admin";
+    }
+
+    function isAllowedImageType() {
+      return request.resource.contentType.matches('image/(png|jpeg|webp|jpg)');
+    }
+
+    function isAllowedDocumentType() {
+      return request.resource.contentType.matches('image/(png|jpeg|webp|jpg)') ||
+             request.resource.contentType == 'application/pdf';
+    }
+
+    function isUnder(maxMb) {
+      return request.resource.size < maxMb * 1024 * 1024;
+    }
+
+    // ─── X-Ray images (up to 15 MB) ──────────────────────────────────────
+    match /users/{uid}/xrays/{filename} {
+      allow read:   if isOwner(uid) || isAdmin();
+      allow create: if isOwner(uid) && isAllowedImageType() && isUnder(15);
+      allow delete: if isOwner(uid) || isAdmin();
+    }
+
+    // ─── Lab reports / PDFs (up to 10 MB) ────────────────────────────────
+    match /users/{uid}/reports/{filename} {
+      allow read:   if isOwner(uid) || isAdmin();
+      allow create: if isOwner(uid) && isAllowedDocumentType() && isUnder(10);
+      allow delete: if isOwner(uid) || isAdmin();
+    }
+
+    // ─── Prescriptions (up to 10 MB) ─────────────────────────────────────
+    match /users/{uid}/prescriptions/{filename} {
+      allow read:   if isOwner(uid) || isAdmin();
+      allow create: if isOwner(uid) && isAllowedDocumentType() && isUnder(10);
+      allow delete: if isOwner(uid) || isAdmin();
+    }
+
+    // ─── Other uploads (up to 10 MB) ─────────────────────────────────────
+    match /users/{uid}/other/{filename} {
+      allow read:   if isOwner(uid) || isAdmin();
+      allow create: if isOwner(uid) && isAllowedDocumentType() && isUnder(10);
+      allow delete: if isOwner(uid) || isAdmin();
+    }
+
+    // ─── Catch-all for the uid namespace (admin only) ─────────────────────
+    match /users/{uid}/{allPaths=**} {
+      allow read:  if isOwner(uid) || isAdmin();
+      allow write: if isAdmin();
+    }
+  }
+}

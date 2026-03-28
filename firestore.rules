@@ -1,0 +1,95 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ─── Helpers ────────────────────────────────────────────────────────────
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    // Safe admin check — exists() guard prevents errors on fresh accounts
+    function isAdmin() {
+      return isSignedIn() &&
+        exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "admin";
+    }
+
+    // ─── Users ──────────────────────────────────────────────────────────────
+    // list is admin-only (user directory). Users only read their own doc.
+    match /users/{uid} {
+      allow get:    if isOwner(uid) || isAdmin();
+      allow list:   if isAdmin();
+      allow create: if isOwner(uid);
+      allow update: if isOwner(uid) || isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // ─── Health Profiles ─────────────────────────────────────────────────────
+    match /healthProfiles/{uid} {
+      allow get:    if isOwner(uid) || isAdmin();
+      allow list:   if isAdmin();
+      allow create: if isOwner(uid) || isAdmin();
+      allow update: if isOwner(uid) || isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // ─── Insights ────────────────────────────────────────────────────────────
+    match /insights/{uid} {
+      allow get:    if isOwner(uid) || isAdmin();
+      allow list:   if isAdmin();
+      allow write:  if isOwner(uid) || isAdmin();
+    }
+
+    // ─── Assessments ─────────────────────────────────────────────────────────
+    // list is allowed for any signed-in user (queries always filter by uid)
+    match /assessments/{assessmentId} {
+      allow create: if isSignedIn() && request.resource.data.uid == request.auth.uid;
+      allow get:    if isSignedIn() && (resource.data.uid == request.auth.uid || isAdmin());
+      allow list:   if isSignedIn();
+      allow update: if isSignedIn() && (resource.data.uid == request.auth.uid || isAdmin());
+      allow delete: if isAdmin();
+    }
+
+    // ─── Uploads / Medical Records ───────────────────────────────────────────
+    // list is allowed for any signed-in user (queries always filter by uid)
+    match /uploads/{uploadId} {
+      allow create: if isSignedIn() && request.resource.data.uid == request.auth.uid;
+      allow get:    if isSignedIn() && (resource.data.uid == request.auth.uid || isAdmin());
+      allow list:   if isSignedIn();
+      allow update: if isSignedIn() && (resource.data.uid == request.auth.uid || isAdmin());
+      allow delete: if isSignedIn() && (resource.data.uid == request.auth.uid || isAdmin());
+    }
+
+    // ─── Reminders ───────────────────────────────────────────────────────────
+    // list is allowed for any signed-in user (queries always filter by uid)
+    match /reminders/{reminderId} {
+      allow create: if isSignedIn() && request.resource.data.uid == request.auth.uid;
+      allow get:    if isSignedIn() && (resource.data.uid == request.auth.uid || isAdmin());
+      allow list:   if isSignedIn();
+      allow update: if isSignedIn() && (resource.data.uid == request.auth.uid || isAdmin());
+      allow delete: if isSignedIn() && (resource.data.uid == request.auth.uid || isAdmin());
+    }
+
+    // ─── ML Model Metadata ───────────────────────────────────────────────────
+    match /modelMetadata/{modelName} {
+      allow read:  if isSignedIn();
+      allow write: if isAdmin();
+    }
+
+    // ─── Admin Logs ──────────────────────────────────────────────────────────
+    match /adminLogs/{logId} {
+      allow read:  if isAdmin();
+      allow write: if isAdmin();
+    }
+
+    // ─── Admin Stats (cached) ────────────────────────────────────────────────
+    match /adminStats/{docId} {
+      allow read:  if isAdmin();
+      allow write: if isAdmin();
+    }
+  }
+}

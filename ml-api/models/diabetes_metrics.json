@@ -1,0 +1,29 @@
+{
+  "best_metrics": {
+    "accuracy": 0.7532467532467533,
+    "precision": 0.66,
+    "recall": 0.6111111111111112,
+    "f1_score": 0.6346153846153846
+  },
+  "all_results": {
+    "logistic_regression": {
+      "accuracy": 0.7142857142857143,
+      "precision": 0.6086956521739131,
+      "recall": 0.5185185185185185,
+      "f1_score": 0.56
+    },
+    "random_forest": {
+      "accuracy": 0.7402597402597403,
+      "precision": 0.64,
+      "recall": 0.5925925925925926,
+      "f1_score": 0.6153846153846154
+    },
+    "svm": {
+      "accuracy": 0.7532467532467533,
+      "precision": 0.66,
+      "recall": 0.6111111111111112,
+      "f1_score": 0.6346153846153846
+    }
+  },
+  "trainedAt": "2026-03-28T11:49:39.867490+00:00"
+}

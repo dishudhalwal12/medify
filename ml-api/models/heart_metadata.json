@@ -1,0 +1,175 @@
+{
+  "module": "heart",
+  "version": "1.0.0",
+  "best_model": "random_forest",
+  "metrics": {
+    "best_metrics": {
+      "accuracy": 0.8695652173913043,
+      "precision": 0.8611111111111112,
+      "recall": 0.9117647058823529,
+      "f1_score": 0.8857142857142857
+    },
+    "all_results": {
+      "logistic_regression": {
+        "accuracy": 0.842391304347826,
+        "precision": 0.8411214953271028,
+        "recall": 0.8823529411764706,
+        "f1_score": 0.861244019138756
+      },
+      "random_forest": {
+        "accuracy": 0.8695652173913043,
+        "precision": 0.8611111111111112,
+        "recall": 0.9117647058823529,
+        "f1_score": 0.8857142857142857
+      },
+      "svm": {
+        "accuracy": 0.842391304347826,
+        "precision": 0.8173913043478261,
+        "recall": 0.9215686274509803,
+        "f1_score": 0.8663594470046083
+      }
+    },
+    "trainedAt": "2026-03-28T11:49:43.597105+00:00"
+  },
+  "schema": {
+    "target_column": "num",
+    "positive_label": 1,
+    "negative_label": 0,
+    "dropped_columns": [
+      "id",
+      "dataset"
+    ],
+    "input_columns": [
+      "age",
+      "sex",
+      "cp",
+      "trestbps",
+      "chol",
+      "fbs",
+      "restecg",
+      "thalch",
+      "exang",
+      "oldpeak",
+      "slope",
+      "ca",
+      "thal"
+    ]
+  },
+  "baselines": {
+    "age": {
+      "type": "numeric",
+      "overall_median": 54.0,
+      "positive_median": 57.0,
+      "negative_median": 51.0,
+      "std": 9.424685209576857,
+      "label": "Age"
+    },
+    "sex": {
+      "type": "categorical",
+      "overall_mode": "Male",
+      "positive_mode": "Male",
+      "negative_mode": "Male",
+      "label": "Sex"
+    },
+    "cp": {
+      "type": "categorical",
+      "overall_mode": "asymptomatic",
+      "positive_mode": "asymptomatic",
+      "negative_mode": "atypical angina",
+      "label": "Cp"
+    },
+    "trestbps": {
+      "type": "numeric",
+      "overall_median": 130.0,
+      "positive_median": 130.0,
+      "negative_median": 130.0,
+      "std": 19.066069518587476,
+      "label": "Trestbps"
+    },
+    "chol": {
+      "type": "numeric",
+      "overall_median": 223.0,
+      "positive_median": 218.0,
+      "negative_median": 228.0,
+      "std": 110.7808103532305,
+      "label": "Chol"
+    },
+    "fbs": {
+      "type": "categorical",
+      "overall_mode": "False",
+      "positive_mode": "False",
+      "negative_mode": "False",
+      "label": "Fbs"
+    },
+    "restecg": {
+      "type": "categorical",
+      "overall_mode": "normal",
+      "positive_mode": "normal",
+      "negative_mode": "normal",
+      "label": "Restecg"
+    },
+    "thalch": {
+      "type": "numeric",
+      "overall_median": 140.0,
+      "positive_median": 128.0,
+      "negative_median": 151.0,
+      "std": 25.926276492797594,
+      "label": "Thalch"
+    },
+    "exang": {
+      "type": "categorical",
+      "overall_mode": "False",
+      "positive_mode": "True",
+      "negative_mode": "False",
+      "label": "Exang"
+    },
+    "oldpeak": {
+      "type": "numeric",
+      "overall_median": 0.5,
+      "positive_median": 1.05,
+      "negative_median": 0.0,
+      "std": 1.0912262483465298,
+      "label": "Oldpeak"
+    },
+    "slope": {
+      "type": "categorical",
+      "overall_mode": "flat",
+      "positive_mode": "flat",
+      "negative_mode": "upsloping",
+      "label": "Slope"
+    },
+    "ca": {
+      "type": "numeric",
+      "overall_median": 0.0,
+      "positive_median": 1.0,
+      "negative_median": 0.0,
+      "std": 0.935653012559987,
+      "label": "Ca"
+    },
+    "thal": {
+      "type": "categorical",
+      "overall_mode": "normal",
+      "positive_mode": "reversable defect",
+      "negative_mode": "normal",
+      "label": "Thal"
+    }
+  },
+  "explainability": {
+    "type": "random_forest",
+    "global_importance": {
+      "age": 0.024380678775210652,
+      "sex": 0.020879669702179714,
+      "cp": 0.06043689597399419,
+      "trestbps": 0.0206947208792042,
+      "chol": 0.05253612493159471,
+      "fbs": 0.01950592966139162,
+      "restecg": 0.0019701104598293107,
+      "thalch": 0.008979782288264727,
+      "exang": 0.016801702229291882,
+      "oldpeak": 0.027181855217422703,
+      "slope": 0.0073231405794001335,
+      "ca": 0.020654569495849495,
+      "thal": 0.01921496383543404
+    }
+  }
+}

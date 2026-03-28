@@ -1,0 +1,29 @@
+{
+  "best_metrics": {
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1_score": 1.0
+  },
+  "all_results": {
+    "logistic_regression": {
+      "accuracy": 0.9875,
+      "precision": 1.0,
+      "recall": 0.98,
+      "f1_score": 0.98989898989899
+    },
+    "random_forest": {
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1_score": 1.0
+    },
+    "svm": {
+      "accuracy": 0.975,
+      "precision": 1.0,
+      "recall": 0.96,
+      "f1_score": 0.9795918367346939
+    }
+  },
+  "trainedAt": "2026-03-28T11:49:47.861372+00:00"
+}

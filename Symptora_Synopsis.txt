@@ -1,0 +1,187 @@
+﻿(____ COLLEGE NAME ____)
+(____ College Location, City, PIN ____)
+(Affiliated to ____ University ____)
+(Recognition / Accreditation details to be filled here)
+
+
+A
+Synopsis Report
+On
+“Symptora – Machine Learning-Based Disease
+Prediction and Risk Assessment System”
+For Partial Fulfilment of (____ Degree Program ____)
+((____ Short Degree / Batch ____) )
+
+
+Submitted to
+(____)
+(____)
+(____)
+	Submitted by
+(____)
+(____)
+(____)
+	(____ MONTH, YEAR ____)
+________________
+
+
+TABLE OF CONTENTS
+S. No.
+	Topic
+	Page No.
+	1.
+	Introduction
+	3
+	2.
+	Why Was This Topic Chosen?
+	4
+	3.
+	Objectives and Scope
+	5
+	4.
+	Methodology
+	6
+	5.
+	Technology Stack
+	7
+	6.
+	Testing Technologies Used
+	8
+	7.
+	Limitations and Future Scope
+	9
+	8.
+	Team Work Distribution
+	10
+	9.
+	Conclusion
+	11
+	________________
+
+
+1. INTRODUCTION
+People often ignore early health signs because nothing looks serious at first. A small fever gets brushed off. A constant cough gets blamed on weather. Someone sees a blood report with a few high values, saves the PDF in their phone, and does nothing with it for weeks. That pattern is common. We noticed that most people do not struggle because they have no medical data. They struggle because the data sits in different places and nobody turns it into one clear risk picture.
+We also noticed how scattered the process feels. Lab reports arrive as PDF files. X-rays sit in gallery folders. Old prescriptions stay folded in a drawer. If someone wants a quick sense of whether their numbers look worrying, they usually search random symptoms online or ask friends. That is messy, and it does not help much. We wanted to build one web app where a user can store health details, enter important values, upload reports, and get an ML-based risk reading in one place.
+1.1 Problem Statement
+Problems faced by users:
+1. Most people do not have one place where symptoms, lab values, scan records, and past predictions can be seen together.
+2. A blood report may show unusual glucose, cholesterol, or blood pressure values, but the user still does not know whether the overall risk is low or high.
+3. Medical files stay scattered across WhatsApp chats, email attachments, and gallery folders, so follow-up becomes hard.
+Problems faced by the current process:
+4. A lot of online tools only give a symptom checklist or a chatbot answer, which can feel shallow and hard to trust.
+5. Image reports such as chest X-rays are often uploaded somewhere, but the user gets no structured history or comparison with earlier records.
+We built Symptora to close that gap. It is a web-based health risk platform where users can sign up, create a profile, upload records, run disease-specific assessments, and see results on a dashboard that feels clear instead of confusing. We kept the scope practical. We wanted a project that looks modern, uses real machine learning, and still stays explainable in viva.
+________________
+
+
+2. WHY WAS THIS TOPIC CHOSEN?
+The idea came from something pretty normal. We kept seeing people around us send report screenshots to friends and ask, “Is this bad?” That stuck with us. It showed there is a real gap between having health data and understanding what that data means. We were not trying to build a doctor replacement. We wanted to build a student-level web product that gives a clearer risk picture than a random internet search.
+2.1 The Gap We Noticed
+When we looked at existing options, the split felt obvious. Some apps are just appointment tools. Some are only chatbots. Some disease predictors ask for two or three values and then throw out a label with no context. We wanted something in the middle. A user should be able to enter proper health values, upload a report or X-ray, and still see a result page that explains what pushed the score up or down.
+2.2 Why Machine Learning Made Sense Here
+This topic works well for machine learning because a lot of health risk patterns come from numbers and repeated signals. Age, glucose, blood pressure, BMI, cholesterol, and family history are not random values. They form patterns. A trained model can learn those patterns from datasets and give a risk reading much better than a fixed if-else form. We also wanted one image-based module, so chest X-ray analysis felt like the right way to make the project more interesting without turning it into a giant hospital app.
+2.3 What We Wanted to Learn From It
+Honestly, we picked this because it pushed us on both sides at once. We had to think about frontend flow, Firebase storage, Python APIs, model training, and result explanation in one build. None of us had done all of that together in one project before. That was a big reason to choose it. By the end, we wanted more than a fancy homepage. We wanted something we could actually defend when someone asked, “Where is the real ML here?”
+________________
+
+
+3. OBJECTIVES AND SCOPE
+The main things we wanted the app to do:
+1. Build a secure login and signup flow so each user gets a private health dashboard.
+2. Create a health profile section where users can save age, habits, family history, and earlier medical details.
+3. Add tabular risk assessment modules for diseases such as diabetes, heart disease, and liver or kidney risk.
+4. Include one image-based module where a chest X-ray can be checked through a trained model.
+5. Store uploaded PDFs, reports, and scan images so the app also works like a small personal record locker.
+6. Show prediction result, confidence score, risk band, and the main factors that shaped that result.
+7. Save every assessment in history and allow the user to download a clean summary report.
+3.1 What the System Covers
+Symptora is built as a web app for one main role: the user who wants to track health details and run assessments over time. The app covers sign in, profile setup, value entry, report upload, X-ray upload, disease prediction, history tracking, and PDF export. The machine learning part sits behind the form flow, while the dashboard shows trends in a way that feels readable and not too technical.
+3.2 What We Left Out on Purpose
+We kept a few things out on purpose. This version does not try to replace doctors, give medicine prescriptions, or handle hospital booking. We also did not force MRI and CT scan analysis into the first build because that would have stretched the project too far for our timeline. The AI layer is only used for explanation and summary support. The actual prediction logic comes from trained ML models, and that line mattered a lot to us.
+________________
+
+
+4. METHODOLOGY
+We did not follow a formal software process line by line. What we actually did was closer to a staged build. We first locked the product idea, then planned the data flow, then built the UI, and only after that did we connect the ML side. We also used AI-assisted coding tools like GitHub Copilot and Claude during debugging and rough code generation. That saved time, though it still took plenty of manual cleanup.
+4.1 Requirement Gathering
+We started by writing down what would make the app feel worth using. A plain predictor form was not enough. So we added health profile storage, report uploads, risk history, explainable output, and one image-based module. We also looked at a few health dashboards online to see what felt clean and what felt overloaded. That helped us cut some ideas early.
+4.2 System Design
+After that, we mapped the page flow on paper: landing page, authentication, onboarding, dashboard, disease modules, upload center, results, and history. We also planned the Firestore collections for users, assessments, files, and reminders. Our first dashboard draft had too many cards and too many charts on one screen. We pulled it back. That change made the app look calmer and easier to follow.
+4.3 Development
+Frontend work came first because the product had to feel solid before the prediction engine was connected. Once the React screens were ready, we added Firebase Authentication, Firestore, and Storage. The Python backend came next for model serving. Then we trained tabular models in scikit-learn and tested a CNN-based image model for chest X-rays. Getting the response format right between FastAPI and the result page took longer than we expected, mainly because one field name mismatch broke the whole result card.
+4.4 Testing and Deployment
+We tested every module separately before connecting them. Authentication was checked first, then file upload, then manual value entry, then ML prediction calls. After that, we did a full integration run and logged every error we saw. We planned the frontend deployment on Firebase Hosting and kept the ML API separate so the machine learning part stays easier to manage.
+________________
+
+
+5. TECHNOLOGY STACK
+We picked tools based on three things: they had to be free or nearly free, well documented, and realistic for our skill level. We did not want a stack that sounds fancy but slows the whole build down.
+5.1 Frontend
+* React.js / Next.js — We used a component-based frontend because the app has multiple screens, cards, forms, and dashboard widgets that need to stay consistent.
+* Tailwind CSS — We used utility-first styling to build a cleaner health-tech UI without writing huge CSS files from scratch.
+* Chart.js / Recharts — These help show trends like previous risk scores, uploaded record counts, and health history in a way the user can read quickly.
+5.2 Backend and App Services
+* Firebase Authentication — Handles sign up, login, password reset, and user sessions without making us build auth from scratch.
+* Firebase Firestore — Stores user profiles, assessment history, reminder records, and result summaries in a flexible way.
+* Firebase Storage — Used for PDFs, lab reports, and X-ray image uploads.
+5.3 Machine Learning Layer
+* Python FastAPI — We used a separate Python API so trained models can be called from the web app cleanly.
+* Scikit-learn — Used for tabular prediction models such as diabetes and heart disease risk.
+* TensorFlow / Keras — Used for the image model in the chest X-ray module.
+5.4 AI Support Layer
+* Gemini API — Used only for report explanation, summary writing, and plain-language output. It does not make the actual disease prediction.
+5.5 Version Control and Deployment
+* GitHub — We used branches to manage UI work, backend work, and model changes without breaking the main codebase.
+* Firebase Hosting and a separate Python deployment — This split keeps the frontend light while the ML API stays independent.
+________________
+
+
+6. TESTING TECHNOLOGIES USED
+We did not use any heavy automated testing setup. Everything was done manually. That is the honest version. For a student project with web app flow, file uploads, and ML APIs, careful manual testing was the practical choice for us.
+6.1 Functional Testing
+We checked each screen and form one by one. Login, signup, profile save, disease input forms, X-ray upload, result generation, and report download were all tested with both valid and broken inputs. For example, we tried incomplete glucose values, repeated uploads, and unsupported image sizes to see where the app would fail.
+6.2 Integration Testing
+The hardest part was the connection between Firebase records, FastAPI predictions, and the frontend result screen. One bug took us close to a day: the backend was returning a probability field, but the frontend card was reading confidenceScore instead. So the result showed blank values even though the model call had worked. Once we fixed the field mapping, the whole flow started behaving properly.
+6.3 Usability Testing
+We asked two classmates outside our team to use the app without any explanation. That was useful. One of them did not understand whether reports had uploaded successfully because the success message was too small. The other said the assessment page looked heavy because every disease form showed at once. We changed both by adding a better upload confirmation and keeping disease modules separated by tabs.
+6.4 Security Testing
+We also checked the basic privacy side. Firestore rules were set so one user cannot open another user’s records. Unauthenticated requests to protected routes were blocked. We also made sure uploaded file links are tied to authenticated access, because health records should not be casually visible.
+________________
+
+
+7. LIMITATIONS AND FUTURE SCOPE
+7.1 Current Limitations
+* The app still depends on internet access for login, report upload, ML prediction calls, and AI-based summary support.
+* Prediction quality depends on the datasets used for training, so the output should be treated as risk guidance and not a medical verdict.
+* The first build focuses on a limited set of disease modules instead of trying to cover every medical condition.
+* MRI and CT scan analysis were left out because adding them properly would have made the project too wide for one submission cycle.
+* The record extraction flow is semi-manual right now, which means users may still need to confirm some values after upload.
+7.2 Future Scope
+* Add stronger OCR support so report values can be picked up more cleanly from uploaded PDFs and images.
+* Expand the model library to cover more disease categories once we have better and cleaner datasets.
+* Add mobile-first reminders and push notifications for follow-up assessments and record updates.
+* Introduce comparison tools where older and newer reports can be viewed side by side with trend notes.
+* Build a doctor-facing review mode in a later version so the platform can be used for guided consultation support.
+We were careful here. It is easy to promise too much in a healthcare project. We would rather show a smaller build that makes sense than claim a huge platform that only works on paper.
+________________
+
+
+8. TEAM WORK DISTRIBUTION
+We split the work based on comfort level, but the split was never fully rigid. Once the app reached the integration stage, everyone ended up touching more than one part. That said, each person still had a clear core area.
+8.1 (____) — Frontend and UI Design
+(____) handled the landing page, authentication screens, dashboard layout, upload pages, and the main result cards. The biggest challenge on this side was keeping the health dashboard clean. Our first version had too many blocks on one screen and felt noisy. That took a few redesign rounds before it looked right.
+8.2 (____) — Backend and Machine Learning
+(____) worked on the Python FastAPI layer, model training, prediction endpoints, and the chest X-ray module. This part took the most trial and error because model output format, preprocessing, and API response shape all had to match. One small mismatch in feature order can break a prediction flow fast, so this section needed repeated checks.
+8.3 (____) — Firebase, Storage, and Testing
+(____) set up Firestore collections, Authentication, Storage rules, upload handling, and most of the final testing notes. Firebase rules took more reading than expected. The syntax is short, but one wrong condition can block valid users or open the wrong data. That part needed careful testing.
+8.4 Shared Work
+Requirement planning, module selection, feature cuts, and final presentation prep were all done together. We also tested each other’s screens, reviewed form flows, and sat together for the final integration pass. That is how the work was divided, and it mostly stayed balanced.
+________________
+
+
+9. CONCLUSION
+The original problem was simple: people often have health data, but they do not have one clean place to turn that data into a readable risk view. Symptora is what we built in response to that. It brings profile data, report uploads, disease prediction, image analysis, and history tracking into one web platform.
+While building it, we worked with React, Firebase Authentication, Firestore, Storage, FastAPI, scikit-learn, and model-serving flow in a single project. Some of these tools were new to us in a real end-to-end build. That was the point. We wanted a project that teaches more than one layer.
+The app still has limits. It is not a replacement for doctors, and it depends on trained datasets and internet-based services. Even so, the core loop works well: sign in, add health data, upload records, run assessments, understand the result, and track history later. That makes it more than a simple prediction form.
+We tried to build something useful, not something flashy on paper. We think we got close.
+* * * End of Synopsis * * *
