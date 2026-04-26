@@ -42,46 +42,34 @@ export function Shell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen px-3 py-3 md:px-5 md:py-5">
       <div className="mx-auto max-w-[1600px] space-y-5">
-        <header className="glass-header rounded-[38px] rounded-br-[78px] p-5 md:p-6">
-          <div className="grid gap-5 xl:grid-cols-[1.08fr_0.92fr] xl:items-center">
+        <header className="glass-header rounded-lg p-5 md:p-6">
+          <div className="grid gap-5 xl:grid-cols-[1fr_auto] xl:items-center">
             <div className="flex items-start gap-4">
-              <BrandMark className="h-16 w-16 shrink-0 rounded-[26px]" />
+              <BrandMark className="h-12 w-12 shrink-0 rounded-lg" />
               <div>
-                <p className="text-xs uppercase tracking-[0.32em] text-[#68779b]">Medify</p>
-                <h1 className="mt-2 text-3xl font-semibold text-[#24304d] md:text-4xl">
-                  Federated healthcare screening
+                <p className="text-xs uppercase tracking-[0.18em] text-[#68779b]">Medify</p>
+                <h1 className="mt-2 text-2xl font-semibold text-[#24304d] md:text-3xl">
+                  Healthcare screening workspace
                 </h1>
-                <p className="mt-3 max-w-2xl text-sm leading-7 text-[#68779b]">
+                <p className="mt-2 max-w-2xl text-sm leading-6 text-[#68779b]">
                   One workspace for symptom-led screening, explainable chance review, saved assessments, and linked clinical records.
                 </p>
               </div>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-[1fr_auto] md:items-center">
-              <div className="bubble-card rounded-[30px] rounded-tr-[60px] p-4">
-                <p className="text-xs uppercase tracking-[0.22em] text-[#68779b]">Current workspace</p>
-                <h2 className="mt-3 text-2xl font-semibold text-[#24304d]">
-                  {activeItem?.label || (pathname === "/dashboard" ? "Dashboard" : pathname.split("/").filter(Boolean).join(" / "))}
-                </h2>
-                <p className="mt-2 text-sm leading-7 text-[#68779b]">
-                  {activeItem?.hint || "Healthcare screening, records management, and explainable likelihood review."}
-                </p>
-              </div>
-
-              <div className="flex flex-wrap gap-3 md:justify-end">
+            <div className="flex flex-wrap items-center gap-3 md:justify-end">
                 <Link href="/assessments/symptom-checker">
                   <Button>Symptom explorer</Button>
                 </Link>
                 {user ? (
-                  <div className="bubble-card flex items-center gap-3 rounded-[28px] px-4 py-3">
-                    <BrandMark className="h-11 w-11 rounded-[18px]" />
+                  <div className="flex items-center gap-3 rounded-lg border border-gray-200 bg-white px-3 py-2 dark:border-[#253044] dark:bg-[#151c28]">
+                    <BrandMark className="h-9 w-9 rounded-md" />
                     <div>
                       <p className="text-sm font-semibold text-[#24304d]">{user.fullName}</p>
-                      <p className="text-xs uppercase tracking-[0.18em] text-[#68779b]">{user.role}</p>
+                      <p className="text-xs uppercase tracking-[0.12em] text-[#68779b]">{user.role}</p>
                     </div>
                   </div>
                 ) : null}
-              </div>
             </div>
           </div>
         </header>
@@ -90,11 +78,13 @@ export function Shell({ children }: { children: React.ReactNode }) {
           <main className="order-2 space-y-5 xl:order-1">{children}</main>
 
           <aside className="order-1 space-y-5 xl:order-2">
-            <section className="shell-card rounded-[34px] rounded-bl-[72px] p-5">
+            <section className="shell-card rounded-lg p-5">
               <div className="flex items-center justify-between gap-4">
                 <div>
-                  <p className="text-xs uppercase tracking-[0.22em] text-[#68779b]">Navigation atlas</p>
-                  <h3 className="mt-2 text-2xl font-semibold text-[#24304d]">Move through the workspace</h3>
+                  <p className="text-xs uppercase tracking-[0.16em] text-[#68779b]">Navigation</p>
+                  <h3 className="mt-2 text-xl font-semibold text-[#24304d]">
+                    {activeItem?.label || (pathname === "/dashboard" ? "Dashboard" : pathname.split("/").filter(Boolean).join(" / "))}
+                  </h3>
                 </div>
                 <Sparkles className="h-5 w-5 text-[#52638b]" />
               </div>
@@ -108,19 +98,19 @@ export function Shell({ children }: { children: React.ReactNode }) {
                       key={item.href}
                       href={item.href}
                       className={cn(
-                        "rounded-[26px] border border-white/82 px-4 py-4 text-left shadow-[10px_10px_24px_rgba(170,184,217,0.12)] transition",
+                        "rounded-lg border px-4 py-3 text-left shadow-none transition",
                         active
-                          ? "bg-[linear-gradient(155deg,rgba(255,255,255,0.9),rgba(224,240,255,0.84))] text-[#24304d]"
-                          : "bg-white/46 text-[#52638b] hover:bg-white/68"
+                          ? "border-[#172033] bg-[#172033] text-white"
+                          : "border-gray-200 bg-white text-[#52638b] hover:bg-gray-50"
                       )}
                     >
                       <div className="flex items-start gap-3">
-                        <div className="medify-orb flex h-10 w-10 shrink-0 items-center justify-center rounded-[16px]">
-                          <item.icon className="h-4 w-4 text-[#24304d]" />
+                        <div className={cn("flex h-9 w-9 shrink-0 items-center justify-center rounded-md border", active ? "border-white/20 bg-white/10" : "border-gray-200 bg-gray-50")}>
+                          <item.icon className={cn("h-4 w-4", active ? "text-white" : "text-[#24304d]")} />
                         </div>
                         <div>
                           <p className="font-semibold text-current">{item.label}</p>
-                          <p className="mt-1 text-xs leading-6 text-current/80">{item.hint}</p>
+                          <p className="mt-1 text-xs leading-5 text-current/80">{item.hint}</p>
                         </div>
                       </div>
                     </Link>
@@ -130,10 +120,10 @@ export function Shell({ children }: { children: React.ReactNode }) {
             </section>
 
             {user ? (
-              <section className="bubble-card rounded-[34px] rounded-tr-[72px] p-5">
-                <p className="text-xs uppercase tracking-[0.22em] text-[#68779b]">Workspace owner</p>
-                <h3 className="mt-3 text-2xl font-semibold text-[#24304d]">{user.fullName}</h3>
-                <p className="mt-2 text-sm leading-7 text-[#68779b]">
+              <section className="bubble-card rounded-lg p-5">
+                <p className="text-xs uppercase tracking-[0.16em] text-[#68779b]">Workspace owner</p>
+                <h3 className="mt-3 text-xl font-semibold text-[#24304d]">{user.fullName}</h3>
+                <p className="mt-2 text-sm leading-6 text-[#68779b]">
                   Keep symptom checks, medical records, and saved results together for the next visit.
                 </p>
                 <Button variant="outline" className="mt-5 w-full justify-center" onClick={() => logout()}>
@@ -143,10 +133,10 @@ export function Shell({ children }: { children: React.ReactNode }) {
               </section>
             ) : null}
 
-            <section className="ink-panel rounded-[34px] rounded-br-[72px] p-5">
-              <p className="text-xs uppercase tracking-[0.22em] text-white/60">Focus</p>
-              <h3 className="mt-3 text-2xl font-semibold text-white">Symptom-led triage</h3>
-              <p className="mt-3 text-sm leading-7 text-white/78">
+            <section className="ink-panel rounded-lg p-5">
+              <p className="text-xs uppercase tracking-[0.16em] text-white/60">Focus</p>
+              <h3 className="mt-3 text-xl font-semibold text-white">Symptom-led triage</h3>
+              <p className="mt-3 text-sm leading-6 text-white/78">
                 Start with the disease concern, capture symptoms, and carry that context into deeper modules whenever more data is available.
               </p>
             </section>

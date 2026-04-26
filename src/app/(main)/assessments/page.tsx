@@ -1,22 +1,23 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Activity, ArrowRight, FileImage, HeartPulse, ShieldCheck, Sparkles } from "lucide-react";
+import { Activity, ArrowRight, Droplets, FileImage, HeartPulse, ShieldCheck, Sparkles, Wind } from "lucide-react";
 
 import { PageIntro } from "@/components/layout/PageIntro";
 import { Card } from "@/components/ui/card";
 
-const modules = [
+const primaryModule = {
+  title: "Symptom likelihood explorer",
+  href: "/symptom-checker",
+  description:
+    "Let patients select the disease they suspect, report symptoms, and view a cleaner probability estimate before moving deeper.",
+  icon: Sparkles,
+  tone: "bg-[#eef7f5]",
+};
+
+const diseaseCheckers = [
   {
-    title: "Symptom likelihood explorer",
-    href: "/symptom-checker",
-    description:
-      "Let patients select the disease they suspect, report symptoms, and view a cleaner probability estimate before moving deeper.",
-    icon: Sparkles,
-    tone: "bg-[#eef7f5]",
-  },
-  {
-    title: "Diabetes risk",
+    title: "Diabetes checker",
     href: "/diabetes",
     description:
       "Use the trained diabetes pipeline with glucose, BMI, insulin, pregnancies, pedigree function, and age.",
@@ -24,7 +25,7 @@ const modules = [
     tone: "bg-[#edf6ff]",
   },
   {
-    title: "Heart disease",
+    title: "Heart disease checker",
     href: "/heart",
     description:
       "Run the heart model with chest pain, resting ECG, exercise angina, max heart rate, and vessel-related features.",
@@ -32,13 +33,40 @@ const modules = [
     tone: "bg-[#fff1f0]",
   },
   {
-    title: "Kidney and liver",
-    href: "/assessments/kidney-or-liver",
+    title: "Kidney checker",
+    href: "/assessments/kidney-or-liver?module=kidney",
     description:
-      "Run the trained kidney and liver workflows from one organ module, with renal chemistry, urine findings, and liver marker forms aligned to the local datasets.",
+      "Run the trained kidney workflow with renal chemistry, urine findings, blood counts, and chronic disease indicators.",
     icon: ShieldCheck,
     tone: "bg-[#eef7ef]",
   },
+  {
+    title: "Liver checker",
+    href: "/assessments/kidney-or-liver?module=liver",
+    description:
+      "Run the trained liver workflow with bilirubin, hepatic enzymes, proteins, albumin, and ratio markers.",
+    icon: ShieldCheck,
+    tone: "bg-[#fff7ed]",
+  },
+  {
+    title: "Anemia checker",
+    href: "/assessments/anemia",
+    description:
+      "Screen tiredness, paleness, dizziness, breathlessness, and bleeding clues using the symptom-only engine.",
+    icon: Droplets,
+    tone: "bg-[#fef2f2]",
+  },
+  {
+    title: "Thyroid checker",
+    href: "/assessments/thyroid",
+    description:
+      "Screen weight, temperature, heartbeat, hair, skin, bowel, mood, and sleep patterns without a dataset.",
+    icon: Wind,
+    tone: "bg-[#eef2ff]",
+  },
+];
+
+const supportModules = [
   {
     title: "Chest X-ray",
     href: "/xray",
@@ -51,7 +79,7 @@ const modules = [
 
 export default function AssessmentsPage() {
   const router = useRouter();
-  const [featureModule, ...secondaryModules] = modules;
+  const featureModule = primaryModule;
 
   return (
     <div className="space-y-5">
@@ -65,10 +93,10 @@ export default function AssessmentsPage() {
         <Card className="ink-panel rounded-[38px] rounded-br-[80px] p-6">
           <p className="text-xs uppercase tracking-[0.28em] text-white/55">Primary client-facing flow</p>
           <h3 className="mt-4 max-w-2xl text-4xl font-semibold text-white">
-            Start from the disease the patient thinks they may have, capture symptoms, then surface the likely chances clearly.
+            Six disease checkers are available, plus a symptom explorer for broader screening.
           </h3>
           <p className="mt-4 max-w-2xl text-sm leading-7 text-white/72">
-            Use the symptom explorer for the first patient interaction, then continue into diabetes, heart, kidney, liver, or X-ray workflows when structured values and reports are available.
+            Use trained model forms for diabetes, heart, kidney, and liver. Use symptom-only checkers for anemia and thyroid when no dataset-backed model is needed.
           </p>
         </Card>
 
@@ -103,7 +131,7 @@ export default function AssessmentsPage() {
         </button>
 
         <div className="grid gap-5 md:grid-cols-2">
-          {secondaryModules.map((module, index) => (
+          {supportModules.map((module, index) => (
             <button
               type="button"
               key={module.href}
@@ -119,6 +147,36 @@ export default function AssessmentsPage() {
                   <ArrowRight className="h-5 w-5 text-[#24304d]" />
                 </div>
                 <h3 className="mt-8 text-3xl font-semibold text-gray-950">{module.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-gray-700">{module.description}</p>
+              </Card>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        <div>
+          <p className="text-xs uppercase tracking-[0.18em] text-[#68779b]">Disease checkers</p>
+          <h2 className="mt-2 text-2xl font-semibold text-[#24304d]">6 working assessment checkers</h2>
+        </div>
+
+        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          {diseaseCheckers.map((module) => (
+            <button
+              type="button"
+              key={module.href}
+              onClick={() => router.push(module.href)}
+              className="group block h-full w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c9dfff]/70"
+              aria-label={`Open ${module.title}`}
+            >
+              <Card className="h-full cursor-pointer rounded-lg p-6 transition group-hover:-translate-y-0.5">
+                <div className="flex items-start justify-between gap-4">
+                  <div className={`rounded-lg p-3 ${module.tone}`}>
+                    <module.icon className="h-6 w-6 text-gray-950" />
+                  </div>
+                  <ArrowRight className="h-5 w-5 text-[#24304d]" />
+                </div>
+                <h3 className="mt-6 text-2xl font-semibold text-gray-950">{module.title}</h3>
                 <p className="mt-3 text-sm leading-7 text-gray-700">{module.description}</p>
               </Card>
             </button>

@@ -20,6 +20,13 @@ This README is written for the exact situation where you open AnyDesk on a clien
 - Core local use does not require creating `.env.local`
 - If no Gemini key is provided, record summaries fall back to a built-in local summarizer
 
+**Vercel Deploy Flow**
+- Push changes to GitHub, then import the repo into Vercel
+- Vercel will use `vercel.json` with `npm ci` and `npm run build`
+- The Next.js app deploys on Vercel without needing local Python during the build
+- For live diabetes, heart, kidney, and liver ML inference on Vercel, deploy `ml-api` as a separate Python service and add its base URL in Vercel as `ML_API_URL`
+- Without `ML_API_URL`, symptom-only assessments, records, auth, and general app pages still run, while structured ML routes return a clear configuration message
+
 **Recommended Client Laptop Flow**
 - Use Windows PowerShell unless you know the laptop is macOS/Linux
 - Install in this order:

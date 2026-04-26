@@ -37,6 +37,8 @@ yarn-error.log*
 # python cache
 __pycache__/
 *.py[cod]
+venv/
+.venv/
 
 # local demo uploads
 public/local-uploads/

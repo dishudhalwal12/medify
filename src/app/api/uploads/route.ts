@@ -3,8 +3,7 @@ import path from "node:path";
 
 import { NextResponse } from "next/server";
 
-const PUBLIC_DIR = path.join(/* turbopackIgnore: true */ process.cwd(), "public");
-const LOCAL_UPLOAD_ROOT = path.join(PUBLIC_DIR, "local-uploads");
+const LOCAL_UPLOAD_ROOT = path.join(/*turbopackIgnore: true*/ process.cwd(), "public", "local-uploads");
 
 function sanitizeSegment(value: string) {
   return value
@@ -20,7 +19,8 @@ function assertSafeRelativePath(relativePath: string) {
     throw new Error("Invalid upload path.");
   }
 
-  const absolutePath = path.join(PUBLIC_DIR, normalized);
+  const localPath = normalized.slice("local-uploads/".length);
+  const absolutePath = path.join(LOCAL_UPLOAD_ROOT, localPath);
   if (!absolutePath.startsWith(LOCAL_UPLOAD_ROOT)) {
     throw new Error("Upload path escapes the local upload directory.");
   }
@@ -67,7 +67,7 @@ export async function POST(request: Request) {
       .join("/");
 
     const relativePath = `local-uploads/${sanitizedPath}`;
-    const absolutePath = path.join(PUBLIC_DIR, relativePath);
+    const absolutePath = path.join(LOCAL_UPLOAD_ROOT, sanitizedPath);
 
     await mkdir(path.dirname(absolutePath), { recursive: true });
     const bytes = Buffer.from(await file.arrayBuffer());
